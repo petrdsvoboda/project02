@@ -1,12 +1,10 @@
-import { Energy } from "./components/Energy"
-import { Position } from "./components/Position"
 import { ECS } from "./_lib/ECS"
 
 const test = () => {
-	const ecs = new ECS()
-
-	ecs.registerEntity(e => {
-		e.addComponent(new Position())
-		e.addComponent(new Energy())
-	}, "Node")
+	let ecs = new ECS()
+	let entity = ecs.addEntity()
+	ecs.removeEntity(entity) // Removed after next update()
+	// Entity still here now.
+	ecs.update()
+	// Entity gone.
 }

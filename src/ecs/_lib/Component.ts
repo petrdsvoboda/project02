@@ -4,4 +4,4 @@
  *
  * Components have no API to fulfill.
  */
-export class Component {}
+export abstract class Component {}

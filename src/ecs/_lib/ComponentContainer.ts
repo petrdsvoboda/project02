@@ -1,5 +1,5 @@
 import { Component } from "./Component"
-import { ComponentClass } from "./types"
+import { ComponentClass } from "./ComponentClass"
 
 /**
  * This custom container is so that calling code can provide the
@@ -21,32 +21,30 @@ import { ComponentClass } from "./types"
  * the Components that can't change them.
  */
 export class ComponentContainer {
-	#components = new Map<Function, Component>()
+	private map = new Map<Function, Component>()
 
-	addComponent(...components: Component[]): void {
-		for (const component of components) {
-			this.#components.set(component.constructor, component)
-		}
+	public add(component: Component): void {
+		this.map.set(component.constructor, component)
 	}
 
-	getComponent<T extends Component>(componentClass: ComponentClass<T>): T {
-		return this.#components.get(componentClass) as T
+	public get<T extends Component>(componentClass: ComponentClass<T>): T {
+		return this.map.get(componentClass) as T
 	}
 
-	hasComponent(componentClass: Function): boolean {
-		return this.#components.has(componentClass)
+	public has(componentClass: Function): boolean {
+		return this.map.has(componentClass)
 	}
 
-	hasAllComponents(componentClasses: Iterable<Function>): boolean {
+	public hasAll(componentClasses: Iterable<Function>): boolean {
 		for (let cls of componentClasses) {
-			if (!this.#components.has(cls)) {
+			if (!this.map.has(cls)) {
 				return false
 			}
 		}
 		return true
 	}
 
-	deleteComponent(componentClass: Function): void {
-		this.#components.delete(componentClass)
+	public delete(componentClass: Function): void {
+		this.map.delete(componentClass)
 	}
 }

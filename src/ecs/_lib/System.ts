@@ -1,4 +1,5 @@
 import { ECS } from "./ECS"
+import { Entity } from "./Entity"
 
 /**
  * A System cares about a set of Components. It will run on every Entity
@@ -20,17 +21,17 @@ export abstract class System {
 	 *
 	 * This should be defined at compile time and should never change.
 	 */
-	abstract componentsRequired: Set<Function>
+	public abstract componentsRequired: Set<Function>
 
 	/**
 	 * update() is called on the System every frame.
 	 */
-	abstract update(): void
+	public abstract update(entities: Set<Entity>): void
 
 	/**
 	 * The ECS is given to all Systems. Systems contain most of the game
 	 * code, so they need to be able to create, mutate, and destroy
 	 * Entities and Components.
 	 */
-	ecs!: ECS
+	public ecs!: ECS
 }
